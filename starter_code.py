@@ -35,7 +35,11 @@ def linear_search(data, target):
     """
     # TODO: Implement linear search that loops through each element and returns its index if found and -1 if not found.
     
-    pass # Delete pass and write your code here
+    for i, value in enumerate(data):
+        if value == target:
+            return i
+    return -1
+
 
 
 # ============================================================================
@@ -67,7 +71,20 @@ def binary_search_iterative(data, target):
     """
     # TODO: Implement iterative binary search that uses iteration to find the target. Return the index if found and -1 if not found.
     
-    pass # Delete pass and write your code here
+    left = 0
+    right = len(data) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        if data[mid] == target:
+            return mid
+        elif data[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+
+    return -1
 
 
 # ============================================================================
@@ -104,8 +121,22 @@ def binary_search_recursive(data, target, left=None, right=None):
     
     # TODO: Implement recursive binary search that uses recursion to find the target. Return the index if found and -1 if not found. Note that default parameters are already handled above.
 
-    
-    pass # Delete pass and write your code here
+    if left is None:
+        left = 0
+    if right is None:
+        right = len(data) - 1
+
+    if left > right:
+        return -1
+
+    mid = (left + right) // 2
+
+    if data[mid] == target:
+        return mid
+    elif data[mid] < target:
+        return binary_search_recursive(data, target, mid + 1, right)
+    else:
+        return binary_search_recursive(data, target, left, mid - 1)
 
 
 # ============================================================================
@@ -283,8 +314,8 @@ if __name__ == "__main__":
     
     # Uncomment these as you complete each part:
     
-    # test_search_correctness()
-    # benchmark_all_datasets()
-    # analyze_preprocessing_costs()
+    test_search_correctness()
+    benchmark_all_datasets()
+    analyze_preprocessing_costs()
     
     print("\n⚠ Uncomment the test functions in the main block to run benchmarks!")
